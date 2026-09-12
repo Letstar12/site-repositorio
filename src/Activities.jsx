@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
 import { getPortfolioData } from "./services/portfolio";
+import { applyTheme, getInitialTheme } from "./theme";
 
 function Activities() {
   const [portfolio, setPortfolio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [theme, setTheme] = useState(getInitialTheme);
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   useEffect(() => {
     async function loadActivities() {
       try {
         const data = await getPortfolioData();
+
         setPortfolio(data);
       } catch (err) {
         console.error(err);
-        setError("Não foi possível carregar as atividades.");
+
+        setError(
+          "Não foi possível carregar as atividades."
+        );
       } finally {
         setLoading(false);
       }
@@ -21,6 +31,14 @@ function Activities() {
 
     loadActivities();
   }, []);
+
+  function toggleTheme() {
+    setTheme((currentTheme) =>
+      currentTheme === "light"
+        ? "dark"
+        : "light"
+    );
+  }
 
   function organizeFiles(files) {
     const structure = {};
@@ -45,50 +63,88 @@ function Activities() {
         structure[semestre][bimestre][materia] = {};
       }
 
-      if (!structure[semestre][bimestre][materia][semana]) {
+      if (
+        !structure[semestre][bimestre][materia][semana]
+      ) {
         structure[semestre][bimestre][materia][semana] = [];
       }
 
-      structure[semestre][bimestre][materia][semana].push(file);
+      structure[semestre][bimestre][materia][semana].push(
+        file
+      );
     });
 
     return structure;
   }
 
-  const organizedActivities =
-    portfolio?.files
-      ? organizeFiles(portfolio.files)
-      : {};
+  const organizedActivities = portfolio?.files
+    ? organizeFiles(portfolio.files)
+    : {};
 
   return (
     <div className="site">
 
       {/* HEADER */}
       <header className="header">
+
+        <div className="header-glow"></div>
+
         <div className="header-content">
           <h1>Atividades Acadêmicas</h1>
-          <p>Portfólio • Desenvolvimento de Sistemas</p>
+
+          <p>
+            Portfólio • Desenvolvimento de Sistemas
+          </p>
         </div>
 
-        <a
-          href={import.meta.env.BASE_URL}
-          className="activities-back-button"
-        >
-          ← Voltar
-        </a>
+
+        {/* CONTROLES */}
+        <div className="header-controls">
+
+          <button
+            className="theme-button"
+            onClick={toggleTheme}
+            aria-label={
+              theme === "light"
+                ? "Ativar modo escuro"
+                : "Ativar modo claro"
+            }
+            title={
+              theme === "light"
+                ? "Modo escuro"
+                : "Modo claro"
+            }
+          >
+            <span className="theme-icon">
+              {theme === "light" ? "☾" : "☀"}
+            </span>
+          </button>
+
+
+          <a
+            href={import.meta.env.BASE_URL}
+            className="activities-back-button"
+          >
+            ← Voltar
+          </a>
+
+        </div>
+
       </header>
+
 
       {/* CONTEÚDO */}
       <main className="activities-page">
 
         <section className="content-card activities-intro">
+
+          <div className="card-shine"></div>
+
           <span className="section-label">
             REGISTROS ACADÊMICOS
           </span>
 
-          <h2>
-            Minhas atividades
-          </h2>
+          <h2>Minhas atividades</h2>
 
           <p>
             Aqui estão organizadas as atividades desenvolvidas
@@ -99,23 +155,26 @@ function Activities() {
             Os registros estão separados por semestre,
             bimestre, matéria e semana.
           </p>
+
         </section>
 
-        {/* CARREGANDO */}
+
         {loading && (
           <div className="github-status">
-            <p>Carregando atividades...</p>
+            <p>
+              Carregando atividades...
+            </p>
           </div>
         )}
 
-        {/* ERRO */}
+
         {!loading && error && (
           <div className="github-status error">
             <p>{error}</p>
           </div>
         )}
 
-        {/* ATIVIDADES */}
+
         {!loading && !error && portfolio && (
           <div className="organized-activities">
 
@@ -128,14 +187,15 @@ function Activities() {
                 >
 
                   <div className="semester-title">
+
                     <span className="section-label">
                       PERÍODO
                     </span>
 
-                    <h2>
-                      {semestre}
-                    </h2>
+                    <h2>{semestre}</h2>
+
                   </div>
+
 
                   {Object.entries(bimestres).map(
                     ([bimestre, materias]) => (
@@ -146,14 +206,15 @@ function Activities() {
                       >
 
                         <div className="bimestre-title">
+
                           <span className="activity-label">
                             PERÍODO LETIVO
                           </span>
 
-                          <h3>
-                            {bimestre}
-                          </h3>
+                          <h3>{bimestre}</h3>
+
                         </div>
+
 
                         <div className="activity-subjects">
 
@@ -169,19 +230,21 @@ function Activities() {
                                   📁
                                 </div>
 
+
                                 <div className="subject-content">
 
                                   <span className="activity-label">
                                     DISCIPLINA
                                   </span>
 
-                                  <h3>
-                                    {materia}
-                                  </h3>
+                                  <h3>{materia}</h3>
+
 
                                   <div className="weeks-container">
 
-                                    {Object.entries(semanas).map(
+                                    {Object.entries(
+                                      semanas
+                                    ).map(
                                       ([semana, files]) => (
 
                                         <div
@@ -193,14 +256,22 @@ function Activities() {
                                             {semana}
                                           </div>
 
+
                                           <div className="subject-files">
 
                                             {files.map(
-                                              (file, index) => (
+                                              (
+                                                file,
+                                                index
+                                              ) => (
 
                                                 <a
-                                                  key={file.path}
-                                                  href={file.url}
+                                                  key={
+                                                    file.path
+                                                  }
+                                                  href={
+                                                    file.url
+                                                  }
                                                   target="_blank"
                                                   rel="noreferrer"
                                                   className="file-link"
@@ -211,7 +282,8 @@ function Activities() {
                                                   </span>
 
                                                   <span className="file-name">
-                                                    Atividade {index + 1}
+                                                    Atividade{" "}
+                                                    {index + 1}
                                                   </span>
 
                                                   <span className="file-arrow">
@@ -224,23 +296,30 @@ function Activities() {
                                             )}
 
                                           </div>
+
                                         </div>
+
                                       )
                                     )}
 
                                   </div>
+
                                 </div>
 
                               </article>
+
                             )
                           )}
 
                         </div>
+
                       </div>
+
                     )
                   )}
 
                 </section>
+
               )
             )}
 
@@ -249,8 +328,12 @@ function Activities() {
 
       </main>
 
+
       {/* FOOTER */}
       <footer className="footer">
+
+        <div className="footer-glow"></div>
+
         <p>
           Portfólio Acadêmico • Desenvolvimento de Sistemas
         </p>
@@ -258,6 +341,7 @@ function Activities() {
         <span>
           © 2026
         </span>
+
       </footer>
 
     </div>

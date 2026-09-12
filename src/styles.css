@@ -32,6 +32,7 @@ button {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 
@@ -44,16 +45,25 @@ button {
   background: #081522;
   color: white;
   min-height: 150px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding: 35px 80px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.25);
+
   z-index: 100;
+  overflow: visible;
 }
 
 .header-content {
   text-align: center;
+  position: relative;
+  z-index: 2;
+  animation: headerAppear 0.8s ease both;
 }
 
 .header-content h1 {
@@ -69,12 +79,37 @@ button {
 }
 
 
+/* brilho sutil do header */
+
+.header-glow {
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  top: -180px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: rgba(130, 180, 210, 0.10);
+
+  border-radius: 50%;
+
+  filter: blur(45px);
+
+  animation: headerGlow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+
 /* =========================================================
    BOTÃO HAMBÚRGUER
 ========================================================= */
 
 .menu-button {
   position: absolute;
+
   top: 28px;
   right: 35px;
 
@@ -90,37 +125,69 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   gap: 5px;
 
   transition:
-    background 0.25s ease,
-    transform 0.25s ease;
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+
+  z-index: 5;
 }
 
 .menu-button:hover {
   background: rgba(255, 255, 255, 0.13);
-  transform: translateY(-2px);
+
+  transform:
+    translateY(-2px)
+    scale(1.03);
+
+  border-color: rgba(255, 255, 255, 0.45);
+
+  box-shadow:
+    0 0 18px rgba(180, 210, 225, 0.12);
 }
 
 .menu-button span {
   display: block;
+
   width: 22px;
   height: 2px;
+
   background: white;
+
   border-radius: 5px;
-  transition: 0.25s ease;
+
+  transition:
+    transform 0.35s ease,
+    opacity 0.25s ease,
+    width 0.25s ease;
+}
+
+.menu-button.active {
+  background: rgba(255, 255, 255, 0.10);
+
+  box-shadow:
+    0 0 20px rgba(180, 210, 225, 0.14);
 }
 
 .menu-button.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform:
+    translateY(7px)
+    rotate(45deg);
 }
 
 .menu-button.active span:nth-child(2) {
   opacity: 0;
+  width: 0;
 }
 
 .menu-button.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform:
+    translateY(-7px)
+    rotate(-45deg);
 }
 
 
@@ -130,23 +197,28 @@ button {
 
 .menu {
   position: absolute;
+
   top: 88px;
   right: 35px;
 
   width: 230px;
 
-  background: #f5f3ee;
+  background: rgba(245, 243, 238, 0.98);
+
   border-radius: 14px;
 
   padding: 10px;
 
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(180, 210, 225, 0.08);
 
   display: flex;
   flex-direction: column;
+
   gap: 5px;
 
-  animation: menuAppear 0.2s ease;
+  animation: menuAppear 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .menu a,
@@ -167,25 +239,34 @@ button {
   font-size: 15px;
 
   transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .menu a:hover,
 .menu button:hover {
   background: #e4e9ed;
-  transform: translateX(3px);
+
+  transform: translateX(4px);
+
+  box-shadow:
+    inset 2px 0 0 #536575;
 }
 
 @keyframes menuAppear {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform:
+      translateY(-10px)
+      scale(0.97);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform:
+      translateY(0)
+      scale(1);
   }
 }
 
@@ -196,9 +277,12 @@ button {
 
 .main-content {
   width: min(1100px, calc(100% - 40px));
+
   margin: 45px auto;
+
   display: flex;
   flex-direction: column;
+
   gap: 28px;
 }
 
@@ -208,25 +292,85 @@ button {
 ========================================================= */
 
 .content-card {
+  position: relative;
+
   background: #f5f3ee;
+
   border-radius: 18px;
+
   padding: 38px;
 
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.18);
 
-  animation: cardAppear 0.6s ease both;
+  animation:
+    cardAppear 0.7s ease both;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .content-card:hover {
-  transform: translateY(-2px);
-  transition: transform 0.25s ease;
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.22);
 }
+
+
+/* brilho que passa pelo card */
+
+.card-shine {
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.30),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  pointer-events: none;
+
+  transition: left 0.8s ease;
+}
+
+.content-card:hover .card-shine {
+  left: 140%;
+}
+
 
 @keyframes cardAppear {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform:
+      translateY(20px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes headerAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
   }
 
   to {
@@ -236,6 +380,9 @@ button {
 }
 
 .section-label {
+  position: relative;
+  z-index: 1;
+
   display: block;
 
   font-size: 11px;
@@ -249,6 +396,9 @@ button {
 }
 
 .content-card h2 {
+  position: relative;
+  z-index: 1;
+
   font-size: 29px;
   line-height: 1.2;
 
@@ -258,8 +408,12 @@ button {
 }
 
 .content-card p {
+  position: relative;
+  z-index: 1;
+
   font-size: 16px;
   line-height: 1.7;
+
   color: #333333;
 }
 
@@ -270,8 +424,11 @@ button {
 
 .profile-card {
   display: grid;
+
   grid-template-columns: 220px 1fr;
+
   gap: 38px;
+
   align-items: center;
 }
 
@@ -281,12 +438,14 @@ button {
 ========================================================= */
 
 .profile-image-container {
+  position: relative;
+
   width: 220px;
   height: 220px;
 
   border-radius: 50%;
 
-  overflow: hidden;
+  overflow: visible;
 
   background: #dce2e6;
 
@@ -298,9 +457,24 @@ button {
 
   box-shadow:
     0 8px 22px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.profile-image-container:hover {
+  transform: scale(1.025);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.22),
+    0 0 24px rgba(83, 101, 117, 0.16);
 }
 
 .profile-image {
+  position: relative;
+  z-index: 2;
+
   display: block;
 
   width: 100%;
@@ -311,6 +485,45 @@ button {
   object-fit: cover;
 
   border-radius: 50%;
+}
+
+
+/* anel luminoso */
+
+.profile-image-ring {
+  position: absolute;
+
+  inset: -5px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(83, 101, 117, 0.35);
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.5);
+
+  animation:
+    profilePulse 3.5s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+@keyframes profilePulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scale(1.025);
+  }
+}
+
+.profile-info {
+  position: relative;
+  z-index: 1;
 }
 
 .profile-info h2 {
@@ -328,26 +541,46 @@ button {
 
 .profile-details {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 14px;
+
   margin-top: 20px;
 }
 
 .profile-details div {
   background: #e8ebed;
+
   border-radius: 10px;
+
   padding: 14px;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.profile-details div:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.10);
 }
 
 .profile-details strong {
   display: block;
+
   font-size: 12px;
+
   color: #536575;
+
   margin-bottom: 5px;
 }
 
 .profile-details span {
   font-size: 14px;
+
   color: #111111;
 }
 
@@ -358,12 +591,17 @@ button {
 
 .subjects-grid {
   display: grid;
+
   grid-template-columns: repeat(2, 1fr);
+
   gap: 18px;
+
   margin-top: 25px;
 }
 
 .subject-card {
+  position: relative;
+
   background: #e8ebed;
 
   border-radius: 13px;
@@ -372,26 +610,68 @@ button {
 
   border: 1px solid rgba(13, 27, 42, 0.06);
 
+  overflow: hidden;
+
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
 
 .subject-card:hover {
-  transform: translateY(-4px);
+  transform:
+    translateY(-6px)
+    scale(1.01);
 
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.12);
+    0 12px 25px rgba(0, 0, 0, 0.13);
+
+  border-color:
+    rgba(83, 101, 117, 0.22);
+}
+
+.subject-glow {
+  position: absolute;
+
+  width: 100px;
+  height: 100px;
+
+  right: -55px;
+  top: -55px;
+
+  background: rgba(83, 101, 117, 0.10);
+
+  border-radius: 50%;
+
+  filter: blur(22px);
+
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+}
+
+.subject-card:hover .subject-glow {
+  transform: scale(2);
+  opacity: 0.75;
 }
 
 .subject-card h3 {
+  position: relative;
+  z-index: 1;
+
   font-size: 19px;
+
   margin-bottom: 10px;
+
   color: #111111;
 }
 
 .subject-card p {
+  position: relative;
+  z-index: 1;
+
   font-size: 14px;
+
   line-height: 1.6;
 }
 
@@ -405,36 +685,265 @@ button {
 }
 
 .activities-button {
+  position: relative;
+
   margin-top: 22px;
 
   display: inline-flex;
+
   align-items: center;
+
   gap: 10px;
 
   border: none;
+
   border-radius: 10px;
 
   background: #0d1b2a;
+
   color: white;
 
   padding: 13px 18px;
 
   font-size: 14px;
+
   font-weight: 700;
 
+  overflow: hidden;
+
   transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.activities-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.6s ease;
+}
+
+.activities-button:hover::before {
+  left: 140%;
 }
 
 .activities-button:hover {
   background: #142b40;
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-3px)
+    scale(1.015);
 
   box-shadow:
-    0 7px 16px rgba(0, 0, 0, 0.2);
+    0 10px 22px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(100, 145, 175, 0.13);
+}
+
+.button-icon,
+.button-arrow {
+  position: relative;
+  z-index: 1;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.activities-button:hover .button-icon {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.activities-button:hover .button-arrow {
+  transform:
+    translate(3px, -3px);
+}
+
+
+/* =========================================================
+   CONTATO
+========================================================= */
+
+.contact-links {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 15px;
+
+  margin-top: 25px;
+}
+
+.contact-link {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  background: #e8ebed;
+
+  border: 1px solid rgba(13, 27, 42, 0.07);
+
+  color: #111111;
+
+  text-decoration: none;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.contact-link::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -110%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.7s ease;
+}
+
+.contact-link:hover::before {
+  left: 140%;
+}
+
+.contact-link:hover {
+  transform: translateY(-4px);
+
+  background: #edf0f1;
+
+  border-color:
+    rgba(83, 101, 117, 0.22);
+
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.contact-icon {
+  position: relative;
+  z-index: 1;
+
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #0d1b2a;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.contact-link:hover .contact-icon {
+  transform:
+    scale(1.08)
+    rotate(-2deg);
+
+  box-shadow:
+    0 0 15px rgba(13, 27, 42, 0.18);
+}
+
+.contact-info {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.contact-info strong {
+  font-size: 15px;
+}
+
+.contact-info small {
+  font-size: 12px;
+
+  color: #607383;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.contact-arrow {
+  position: relative;
+  z-index: 1;
+
+  margin-left: auto;
+
+  font-size: 17px;
+
+  color: #607383;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.contact-link:hover .contact-arrow {
+  transform:
+    translate(3px, -3px);
 }
 
 
@@ -444,10 +953,13 @@ button {
 
 .activities-page {
   width: min(1100px, calc(100% - 40px));
+
   margin: 45px auto;
 
   display: flex;
+
   flex-direction: column;
+
   gap: 28px;
 }
 
@@ -478,12 +990,15 @@ button {
 
 .semester-block {
   display: flex;
+
   flex-direction: column;
+
   gap: 20px;
 }
 
 .semester-title {
   color: white;
+
   padding: 5px 5px 0;
 }
 
@@ -493,6 +1008,7 @@ button {
 
 .semester-title h2 {
   font-size: 30px;
+
   color: white;
 }
 
@@ -519,6 +1035,7 @@ button {
   display: block;
 
   font-size: 10px;
+
   font-weight: 700;
 
   letter-spacing: 1.5px;
@@ -530,6 +1047,7 @@ button {
 
 .bimestre-title h3 {
   color: white;
+
   font-size: 23px;
 }
 
@@ -540,7 +1058,9 @@ button {
 
 .activity-subjects {
   display: flex;
+
   flex-direction: column;
+
   gap: 16px;
 }
 
@@ -558,15 +1078,15 @@ button {
   padding: 22px;
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .activity-subject-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.16);
+    0 10px 23px rgba(0, 0, 0, 0.16);
 }
 
 .subject-icon {
@@ -578,14 +1098,25 @@ button {
   background: #dfe5e9;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   font-size: 20px;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.activity-subject-card:hover .subject-icon {
+  transform:
+    scale(1.08)
+    rotate(-2deg);
 }
 
 .subject-content h3 {
   font-size: 20px;
+
   color: #111111;
 
   margin-bottom: 16px;
@@ -598,7 +1129,9 @@ button {
 
 .weeks-container {
   display: flex;
+
   flex-direction: column;
+
   gap: 12px;
 }
 
@@ -612,6 +1145,7 @@ button {
 
 .week-title {
   font-size: 13px;
+
   font-weight: 700;
 
   color: #273947;
@@ -626,13 +1160,17 @@ button {
 
 .subject-files {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 9px;
 }
 
 .file-link {
   display: inline-flex;
+
   align-items: center;
+
   gap: 8px;
 
   text-decoration: none;
@@ -648,16 +1186,23 @@ button {
   padding: 9px 12px;
 
   font-size: 13px;
+
   font-weight: 600;
 
   transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .file-link:hover {
   background: white;
-  transform: translateY(-2px);
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.10);
 }
 
 .file-icon {
@@ -670,7 +1215,16 @@ button {
 
 .file-arrow {
   font-size: 15px;
+
   color: #607383;
+
+  transition:
+    transform 0.25s ease;
+}
+
+.file-link:hover .file-arrow {
+  transform:
+    translate(2px, -2px);
 }
 
 
@@ -699,8 +1253,9 @@ button {
   font-size: 14px;
 
   transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .activities-back-button:hover {
@@ -708,7 +1263,10 @@ button {
 
   transform:
     translateY(-50%)
-    translateX(2px);
+    translateX(3px);
+
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 
@@ -717,6 +1275,8 @@ button {
 ========================================================= */
 
 .footer {
+  position: relative;
+
   margin-top: auto;
 
   background: #081522;
@@ -728,13 +1288,23 @@ button {
   padding: 28px 40px;
 
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
   gap: 8px;
 
   text-align: center;
+
+  overflow: hidden;
+}
+
+.footer p,
+.footer span {
+  position: relative;
+  z-index: 1;
 }
 
 .footer p {
@@ -743,7 +1313,62 @@ button {
 
 .footer span {
   font-size: 12px;
+
   color: #91a2af;
+}
+
+.footer-glow {
+  position: absolute;
+
+  width: 300px;
+  height: 120px;
+
+  bottom: -90px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: rgba(110, 155, 185, 0.10);
+
+  filter: blur(35px);
+
+  border-radius: 50%;
+
+  animation:
+    footerGlow 4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES DE BRILHO
+========================================================= */
+
+@keyframes headerGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform:
+      translateX(-50%)
+      scale(1);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform:
+      translateX(-50%)
+      scale(1.12);
+  }
+}
+
+@keyframes footerGlow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 
@@ -755,7 +1380,12 @@ button {
 
   .header {
     min-height: 125px;
-    padding: 30px 75px 30px 30px;
+
+    padding:
+      30px
+      75px
+      30px
+      30px;
   }
 
   .header-content h1 {
@@ -779,6 +1409,7 @@ button {
   .main-content,
   .activities-page {
     width: min(100% - 28px, 700px);
+
     margin: 28px auto;
   }
 
@@ -788,17 +1419,20 @@ button {
 
   .profile-card {
     grid-template-columns: 1fr;
+
     text-align: center;
   }
 
   .profile-image-container {
     width: 180px;
     height: 180px;
+
     margin: 0 auto;
   }
 
   .profile-details {
     grid-template-columns: 1fr;
+
     text-align: left;
   }
 
@@ -806,14 +1440,19 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+
   .activities-back-button {
     left: 20px;
     top: 20px;
+
     transform: none;
   }
 
   .activities-back-button:hover {
-    transform: translateX(2px);
+    transform: translateX(3px);
   }
 }
 
@@ -826,7 +1465,11 @@ button {
 
   .header {
     min-height: 120px;
-    padding: 55px 25px 25px;
+
+    padding:
+      55px
+      25px
+      25px;
   }
 
   .header-content h1 {
@@ -898,6 +1541,7 @@ button {
 
   .activity-subject-card {
     grid-template-columns: 1fr;
+
     padding: 18px;
   }
 
@@ -922,7 +1566,35 @@ button {
     width: 100%;
   }
 
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-link {
+    padding: 13px;
+  }
+
   .footer {
     padding: 25px 20px;
+  }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE — REDUZIR MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
