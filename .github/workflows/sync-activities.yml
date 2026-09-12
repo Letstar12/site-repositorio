@@ -19,7 +19,7 @@ jobs:
       - name: Baixar repositório privado
         uses: actions/checkout@v4
         with:
-          repository: Letstar12/repositorio-ds
+          repository: Letstar12/portif-lio.ds
           token: ${{ secrets.SOURCE_REPO_TOKEN }}
           path: private-repo
 
