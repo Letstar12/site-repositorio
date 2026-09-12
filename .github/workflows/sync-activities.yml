@@ -1,0 +1,83 @@
+name: Sincronizar atividades
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar site-repositorio
+        uses: actions/checkout@v4
+
+      - name: Baixar repositório privado
+        uses: actions/checkout@v4
+        with:
+          repository: Letstar12/repositorio-ds
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          path: private-repo
+
+      - name: Copiar atividades
+        run: |
+          rm -rf public/atividades
+          mkdir -p public/atividades
+
+          rsync -av \
+            --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude="node_modules/" \
+            private-repo/ public/atividades/
+
+      - name: Gerar portfolio-data.json
+        run: |
+          python3 <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          base = Path("public/atividades")
+          arquivos = []
+
+          for arquivo in sorted(base.rglob("*")):
+              if arquivo.is_file():
+                  relativo = arquivo.relative_to(base).as_posix()
+
+                  arquivos.append({
+                      "name": arquivo.name,
+                      "path": relativo,
+                      "url": f"/site-repositorio/atividades/{relativo}"
+                  })
+
+          dados = {
+              "updatedAt": datetime.now().isoformat(),
+              "files": arquivos
+          }
+
+          Path("public/portfolio-data.json").write_text(
+              json.dumps(dados, ensure_ascii=False, indent=2),
+              encoding="utf-8"
+          )
+          PY
+
+      - name: Verificar alterações
+        run: git status --short
+
+      - name: Salvar sincronização
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add public/atividades public/portfolio-data.json
+
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração encontrada."
+          else
+            git commit -m "Sincroniza atividades do repositorio privado"
+            git push
+          fi
