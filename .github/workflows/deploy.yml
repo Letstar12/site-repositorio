@@ -5,6 +5,14 @@ on:
     branches:
       - main
 
+  workflow_run:
+    workflows:
+      - "Sincronizar atividades"
+    types:
+      - completed
+
+  workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
@@ -12,6 +20,8 @@ permissions:
 
 jobs:
   build:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +49,8 @@ jobs:
           path: ./dist
 
   deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
