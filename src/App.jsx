@@ -3,36 +3,32 @@ import { useState } from "react";
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const goTo = (id) => {
+  const baseUrl = import.meta.env.BASE_URL;
+
+  function goToActivities() {
+    window.location.href = `${baseUrl}atividades.html`;
+  }
+
+  function closeMenu() {
     setMenuOpen(false);
-
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
-  const openActivities = () => {
-    window.location.href = `${import.meta.env.BASE_URL}atividades.html`;
-  };
+  }
 
   return (
     <div className="site">
-      {/* =========================
-          HEADER
-      ========================= */}
+
+      {/* HEADER */}
       <header className="header">
+
         <div className="header-content">
           <h1>Portfólio Acadêmico</h1>
-
-          <p>3º B • Desenvolvimento de Sistemas</p>
+          <p>Desenvolvimento de Sistemas</p>
         </div>
 
-        {/* MENU HAMBÚRGUER */}
+        {/* BOTÃO MENU */}
         <button
           className={`menu-button ${menuOpen ? "active" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Abrir menu"
-          aria-expanded={menuOpen}
         >
           <span></span>
           <span></span>
@@ -42,332 +38,249 @@ function App() {
         {/* MENU */}
         {menuOpen && (
           <nav className="menu">
-            <button onClick={() => goTo("inicio")}>
+
+            <a href="#inicio" onClick={closeMenu}>
               Início
-            </button>
+            </a>
 
-            <button onClick={() => goTo("quem-eu-sou")}>
+            <a href="#quem-sou" onClick={closeMenu}>
               Quem eu sou
-            </button>
+            </a>
 
-            <button onClick={() => goTo("portfolio")}>
+            <a href="#portfolio" onClick={closeMenu}>
               O que é o portfólio
-            </button>
+            </a>
 
-            <button onClick={() => goTo("materias")}>
+            <a href="#materias" onClick={closeMenu}>
               Matérias
-            </button>
+            </a>
 
-            <button onClick={openActivities}>
+            <button
+              onClick={() => {
+                closeMenu();
+                goToActivities();
+              }}
+            >
               Atividades
             </button>
 
-            <button onClick={() => goTo("contato")}>
+            <a href="#contato" onClick={closeMenu}>
               Contato
-            </button>
+            </a>
+
           </nav>
         )}
+
       </header>
 
-      {/* =========================
-          CONTEÚDO PRINCIPAL
-      ========================= */}
+
+      {/* CONTEÚDO PRINCIPAL */}
       <main className="main-content">
 
-        {/* =========================
-            INÍCIO
-        ========================= */}
-        <section id="inicio" className="profile-section">
-          <div className="profile-card">
+        {/* PERFIL */}
+        <section id="inicio" className="content-card profile-card">
 
-            <div className="profile-image-container">
-              <img
-                src="/profile.jpg"
-                alt="Foto de perfil"
-                className="profile-image"
-              />
-            </div>
+          <div className="profile-image-container">
+            <img
+              src={`${baseUrl}profile.jpg`}
+              alt="Foto de perfil"
+              className="profile-image"
+            />
+          </div>
 
-            <div className="profile-info">
+          <div className="profile-info">
 
-              <span className="section-label">
-                PORTFÓLIO ACADÊMICO
-              </span>
+            <span className="section-label">
+              PERFIL ACADÊMICO
+            </span>
 
-              <h2>
-                Letícia Oliveira Sá
-              </h2>
+            <h2>Letícia Oliveira Sá</h2>
 
-              <p className="profile-description">
-                Estudante do Ensino Médio e do curso técnico em
-                Desenvolvimento de Sistemas.
-              </p>
+            <p className="profile-description">
+              Estudante do Ensino Médio e do curso técnico
+              em Desenvolvimento de Sistemas.
+            </p>
 
-              <div className="profile-data">
+            <div className="profile-details">
 
-                <div>
-                  <strong>Nº:</strong>
-                  <span>19</span>
-                </div>
-
-                <div>
-                  <strong>Turma:</strong>
-                  <span>3º B</span>
-                </div>
-
-                <div>
-                  <strong>Curso:</strong>
-                  <span>
-                    Desenvolvimento de Sistemas
-                  </span>
-                </div>
-
+              <div>
+                <strong>Turma:</strong>
+                <span>3º B</span>
               </div>
 
-              <button
-                className="primary-button"
-                onClick={openActivities}
-              >
-                Ver atividades
+              <div>
+                <strong>Número:</strong>
+                <span>19</span>
+              </div>
 
-                <span>→</span>
-              </button>
+              <div>
+                <strong>Curso:</strong>
+                <span>Desenvolvimento de Sistemas</span>
+              </div>
 
             </div>
-          </div>
-        </section>
-
-        {/* =========================
-            QUEM EU SOU
-        ========================= */}
-        <section
-          id="quem-eu-sou"
-          className="content-section"
-        >
-          <div className="content-card">
-
-            <span className="section-label">
-              SOBRE MIM
-            </span>
-
-            <h2>
-              Quem eu sou
-            </h2>
-
-            <p>
-              Meu nome é Letícia e este portfólio reúne
-              parte da minha trajetória acadêmica durante
-              o curso de Desenvolvimento de Sistemas.
-            </p>
-
-            <p>
-              Aqui estão registrados projetos, atividades
-              e aprendizados desenvolvidos ao longo do curso.
-            </p>
 
           </div>
+
         </section>
 
-        {/* =========================
+
+        {/* QUEM EU SOU */}
+        <section id="quem-sou" className="content-card">
+
+          <span className="section-label">
+            SOBRE MIM
+          </span>
+
+          <h2>Quem eu sou</h2>
+
+          <p>
+            Sou estudante do 3º ano do Ensino Médio e do curso
+            técnico em Desenvolvimento de Sistemas.
+          </p>
+
+          <p>
+            Este espaço reúne minha trajetória acadêmica,
+            atividades desenvolvidas e conhecimentos adquiridos
+            durante minha formação.
+          </p>
+
+        </section>
+
+
+        {/* O QUE É O PORTFÓLIO */}
+        <section id="portfolio" className="content-card">
+
+          <span className="section-label">
             PORTFÓLIO
-        ========================= */}
-        <section
-          id="portfolio"
-          className="content-section"
-        >
-          <div className="content-card">
+          </span>
 
-            <span className="section-label">
-              SOBRE O SITE
-            </span>
+          <h2>O que é este portfólio?</h2>
 
-            <h2>
-              O que é o portfólio
-            </h2>
+          <p>
+            Este portfólio foi criado para registrar e organizar
+            minha evolução durante o curso de Desenvolvimento
+            de Sistemas.
+          </p>
 
-            <p>
-              Este portfólio foi desenvolvido para organizar
-              e apresentar minhas atividades acadêmicas,
-              projetos e conhecimentos adquiridos durante
-              o curso.
-            </p>
+          <p>
+            Aqui estão reunidas atividades, projetos e registros
+            produzidos ao longo dos períodos letivos.
+          </p>
 
-            <p>
-              A proposta é manter todos os registros
-              organizados por semestre, bimestre, matéria,
-              semana e atividade.
-            </p>
-
-          </div>
         </section>
 
-        {/* =========================
-            MATÉRIAS
-        ========================= */}
-        <section
-          id="materias"
-          className="content-section"
-        >
-          <div className="content-card">
 
-            <span className="section-label">
-              FORMAÇÃO
-            </span>
+        {/* MATÉRIAS */}
+        <section id="materias" className="content-card">
 
-            <h2>
-              Matérias
-            </h2>
+          <span className="section-label">
+            FORMAÇÃO
+          </span>
 
-            <div className="subjects-grid">
+          <h2>Matérias</h2>
 
-              <article className="subject-info">
-                <h3>Front-End</h3>
+          <div className="subjects-grid">
 
-                <p>
-                  Desenvolvimento de interfaces e páginas
-                  para aplicações web.
-                </p>
-              </article>
+            <article className="subject-card">
+              <h3>Front-End</h3>
+              <p>
+                Desenvolvimento de interfaces e páginas web,
+                utilizando HTML, CSS, JavaScript e React.
+              </p>
+            </article>
 
-              <article className="subject-info">
-                <h3>Back-End</h3>
+            <article className="subject-card">
+              <h3>Back-End</h3>
+              <p>
+                Desenvolvimento da lógica e funcionamento
+                interno das aplicações.
+              </p>
+            </article>
 
-                <p>
-                  Desenvolvimento da lógica e funcionamento
-                  interno das aplicações.
-                </p>
-              </article>
+            <article className="subject-card">
+              <h3>Banco de Dados</h3>
+              <p>
+                Organização, criação e manipulação de dados
+                utilizando bancos relacionais.
+              </p>
+            </article>
 
-              <article className="subject-info">
-                <h3>Banco de Dados</h3>
+            <article className="subject-card">
+              <h3>Inteligência Artificial</h3>
+              <p>
+                Estudo dos conceitos e aplicações da inteligência
+                artificial no desenvolvimento de sistemas.
+              </p>
+            </article>
 
-                <p>
-                  Organização, armazenamento e gerenciamento
-                  de dados.
-                </p>
-              </article>
+            <article className="subject-card">
+              <h3>Mobile</h3>
+              <p>
+                Desenvolvimento de aplicações voltadas
+                para dispositivos móveis.
+              </p>
+            </article>
 
-              <article className="subject-info">
-                <h3>Inteligência Artificial</h3>
-
-                <p>
-                  Conceitos e aplicações relacionadas à
-                  inteligência artificial.
-                </p>
-              </article>
-
-              <article className="subject-info">
-                <h3>Mobile</h3>
-
-                <p>
-                  Desenvolvimento de aplicações e interfaces
-                  para dispositivos móveis.
-                </p>
-              </article>
-
-              <article className="subject-info">
-                <h3>Versionamento</h3>
-
-                <p>
-                  Controle de versões, Git e GitHub aplicados
-                  ao desenvolvimento.
-                </p>
-              </article>
-
-              <article className="subject-info">
-                <h3>Multidisciplinar</h3>
-
-                <p>
-                  Atividades que integram conhecimentos de
-                  diferentes áreas do curso.
-                </p>
-              </article>
-
-            </div>
-          </div>
-        </section>
-
-        {/* =========================
-            ATIVIDADES
-        ========================= */}
-        <section
-          id="atividades"
-          className="content-section"
-        >
-          <div className="content-card activities-card">
-
-            <span className="section-label">
-              REGISTROS
-            </span>
-
-            <h2>
-              Minhas atividades
-            </h2>
-
-            <p>
-              Acesse a página com todas as atividades
-              organizadas por semestre, bimestre, matéria
-              e semana.
-            </p>
-
-            <button
-              className="primary-button link-button"
-              onClick={openActivities}
-            >
-              Acessar atividades
-
-              <span>→</span>
-            </button>
+            <article className="subject-card">
+              <h3>Versionamento</h3>
+              <p>
+                Controle de versões, Git, GitHub e organização
+                de projetos.
+              </p>
+            </article>
 
           </div>
+
         </section>
 
-        {/* =========================
+
+        {/* ATIVIDADES */}
+        <section className="content-card activities-preview">
+
+          <span className="section-label">
+            REGISTROS ACADÊMICOS
+          </span>
+
+          <h2>Minhas atividades</h2>
+
+          <p>
+            Acesse a página com todas as atividades organizadas
+            por semestre, bimestre, matéria e semana.
+          </p>
+
+          <button
+            className="activities-button"
+            onClick={goToActivities}
+          >
+            <span>📎</span>
+            Ver atividades
+            <span>↗</span>
+          </button>
+
+        </section>
+
+
+        {/* CONTATO */}
+        <section id="contato" className="content-card">
+
+          <span className="section-label">
             CONTATO
-        ========================= */}
-        <section
-          id="contato"
-          className="content-section"
-        >
-          <div className="content-card">
+          </span>
 
-            <span className="section-label">
-              CONTATO
-            </span>
+          <h2>Contato</h2>
 
-            <h2>
-              Contato
-            </h2>
+          <p>
+            Este espaço pode ser utilizado para apresentar
+            informações de contato e links profissionais.
+          </p>
 
-            <p>
-              Este espaço poderá reunir futuramente
-              meus principais contatos e links profissionais.
-            </p>
-
-            <div className="contact-item">
-
-              <strong>
-                GitHub
-              </strong>
-
-              <a
-                href="https://github.com/Letstar12"
-                target="_blank"
-                rel="noreferrer"
-              >
-                github.com/Letstar12
-              </a>
-
-            </div>
-
-          </div>
         </section>
 
       </main>
 
-      {/* =========================
-          FOOTER
-      ========================= */}
+
+      {/* FOOTER */}
       <footer className="footer">
 
         <p>
@@ -379,6 +292,7 @@ function App() {
         </span>
 
       </footer>
+
     </div>
   );
 }
