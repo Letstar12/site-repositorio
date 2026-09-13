@@ -14,9 +14,16 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+
   background: #0d1b2a;
+
   color: #111111;
+
   min-width: 320px;
+
+  transition:
+    background 0.45s ease,
+    color 0.45s ease;
 }
 
 button,
@@ -30,9 +37,145 @@ button {
 
 .site {
   min-height: 100vh;
+
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   VARIÁVEIS — MODO CLARO
+========================================================= */
+
+:root {
+  --page-bg: #0d1b2a;
+
+  --header-bg: #081522;
+
+  --card-bg: #f5f3ee;
+
+  --secondary-bg: #e8ebed;
+
+  --text-main: #111111;
+
+  --text-secondary: #333333;
+
+  --muted: #536575;
+
+  --soft-muted: #607383;
+
+  --border: rgba(13, 27, 42, 0.08);
+
+  --shadow:
+    0 12px 30px rgba(0, 0, 0, 0.18);
+
+  --button-bg: #0d1b2a;
+
+  --button-hover: #142b40;
+
+  --menu-bg: #f5f3ee;
+
+  --menu-hover: #e4e9ed;
+
+  --light-text: #ffffff;
+
+  --activity-bg: rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================================================
+   MODO ESCURO
+========================================================= */
+
+:root[data-theme="dark"] {
+  --page-bg: #050b11;
+
+  --header-bg: #03080d;
+
+  --card-bg: #111c27;
+
+  --secondary-bg: #182633;
+
+  --text-main: #f1f4f6;
+
+  --text-secondary: #c5ced5;
+
+  --muted: #9eafbd;
+
+  --soft-muted: #9aabb8;
+
+  --border: rgba(255, 255, 255, 0.09);
+
+  --shadow:
+    0 15px 38px rgba(0, 0, 0, 0.38);
+
+  --button-bg: #e9eef1;
+
+  --button-hover: #ffffff;
+
+  --menu-bg: #111c27;
+
+  --menu-hover: #1b2b3a;
+
+  --light-text: #ffffff;
+
+  --activity-bg: rgba(255, 255, 255, 0.045);
+}
+
+body {
+  background: var(--page-bg);
+}
+
+
+/* brilho ambiente */
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  width: 550px;
+  height: 550px;
+
+  left: 50%;
+  top: 30%;
+
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(
+    circle,
+    rgba(100, 150, 180, 0.08),
+    transparent 68%
+  );
+
+  pointer-events: none;
+
+  z-index: 0;
+
+  animation: ambientGlow 7s ease-in-out infinite;
+}
+
+@keyframes ambientGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1.15);
+  }
 }
 
 
@@ -42,8 +185,11 @@ button {
 
 .header {
   position: relative;
-  background: #081522;
+
+  background: var(--header-bg);
+
   color: white;
+
   min-height: 150px;
 
   display: flex;
@@ -53,33 +199,43 @@ button {
   padding: 35px 80px;
 
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.25);
+    0 4px 25px rgba(0, 0, 0, 0.28);
 
   z-index: 100;
+
   overflow: visible;
+
+  transition:
+    background 0.45s ease,
+    box-shadow 0.45s ease;
 }
 
 .header-content {
   text-align: center;
+
   position: relative;
+
   z-index: 2;
-  animation: headerAppear 0.8s ease both;
+
+  animation:
+    headerAppear 0.8s ease both;
 }
 
 .header-content h1 {
   font-size: 32px;
+
   font-weight: 700;
+
   margin-bottom: 8px;
+
   letter-spacing: 0.3px;
 }
 
 .header-content p {
   font-size: 15px;
+
   color: #dce5ec;
 }
-
-
-/* brilho sutil do header */
 
 .header-glow {
   position: absolute;
@@ -92,14 +248,98 @@ button {
 
   transform: translateX(-50%);
 
-  background: rgba(130, 180, 210, 0.10);
+  background:
+    rgba(130, 180, 210, 0.10);
 
   border-radius: 50%;
 
   filter: blur(45px);
 
-  animation: headerGlow 5s ease-in-out infinite;
+  animation:
+    headerGlow 5s ease-in-out infinite;
+
   pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTROLES DO HEADER
+========================================================= */
+
+.header-controls {
+  position: absolute;
+
+  top: 28px;
+  right: 35px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  z-index: 5;
+}
+
+
+/* =========================================================
+   BOTÃO DE TEMA
+========================================================= */
+
+.theme-button {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 10px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.25);
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.theme-button:hover {
+  transform:
+    translateY(-2px)
+    rotate(-4deg);
+
+  background:
+    rgba(255, 255, 255, 0.13);
+
+  border-color:
+    rgba(255, 255, 255, 0.45);
+
+  box-shadow:
+    0 0 20px rgba(170, 210, 230, 0.15);
+}
+
+.theme-icon {
+  font-size: 22px;
+
+  line-height: 1;
+
+  transition:
+    transform 0.45s ease;
+}
+
+.theme-button:hover .theme-icon {
+  transform:
+    rotate(18deg)
+    scale(1.12);
 }
 
 
@@ -108,21 +348,21 @@ button {
 ========================================================= */
 
 .menu-button {
-  position: absolute;
-
-  top: 28px;
-  right: 35px;
-
   width: 48px;
   height: 48px;
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border:
+    1px solid rgba(255, 255, 255, 0.25);
+
   border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.06);
+  background:
+    rgba(255, 255, 255, 0.06);
 
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
@@ -133,18 +373,18 @@ button {
     transform 0.3s ease,
     box-shadow 0.3s ease,
     border-color 0.3s ease;
-
-  z-index: 5;
 }
 
 .menu-button:hover {
-  background: rgba(255, 255, 255, 0.13);
+  background:
+    rgba(255, 255, 255, 0.13);
 
   transform:
     translateY(-2px)
     scale(1.03);
 
-  border-color: rgba(255, 255, 255, 0.45);
+  border-color:
+    rgba(255, 255, 255, 0.45);
 
   box-shadow:
     0 0 18px rgba(180, 210, 225, 0.12);
@@ -166,13 +406,6 @@ button {
     width 0.25s ease;
 }
 
-.menu-button.active {
-  background: rgba(255, 255, 255, 0.10);
-
-  box-shadow:
-    0 0 20px rgba(180, 210, 225, 0.14);
-}
-
 .menu-button.active span:nth-child(1) {
   transform:
     translateY(7px)
@@ -181,6 +414,7 @@ button {
 
 .menu-button.active span:nth-child(2) {
   opacity: 0;
+
   width: 0;
 }
 
@@ -203,22 +437,27 @@ button {
 
   width: 230px;
 
-  background: rgba(245, 243, 238, 0.98);
+  background: var(--menu-bg);
+
+  border:
+    1px solid var(--border);
 
   border-radius: 14px;
 
   padding: 10px;
 
   box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.35),
-    0 0 25px rgba(180, 210, 225, 0.08);
+    0 15px 40px rgba(0, 0, 0, 0.35);
 
   display: flex;
+
   flex-direction: column;
 
   gap: 5px;
 
-  animation: menuAppear 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation:
+    menuAppear 0.3s
+    cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .menu a,
@@ -226,12 +465,15 @@ button {
   width: 100%;
 
   border: none;
+
   border-radius: 9px;
 
   background: transparent;
-  color: #111111;
+
+  color: var(--text-main);
 
   text-align: left;
+
   text-decoration: none;
 
   padding: 12px 14px;
@@ -241,33 +483,18 @@ button {
   transition:
     background 0.25s ease,
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    color 0.25s ease;
 }
 
 .menu a:hover,
 .menu button:hover {
-  background: #e4e9ed;
+  background: var(--menu-hover);
 
   transform: translateX(4px);
 
   box-shadow:
-    inset 2px 0 0 #536575;
-}
-
-@keyframes menuAppear {
-  from {
-    opacity: 0;
-    transform:
-      translateY(-10px)
-      scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1);
-  }
+    inset 2px 0 0 var(--muted);
 }
 
 
@@ -276,11 +503,15 @@ button {
 ========================================================= */
 
 .main-content {
-  width: min(1100px, calc(100% - 40px));
+  width: min(
+    1100px,
+    calc(100% - 40px)
+  );
 
   margin: 45px auto;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 28px;
@@ -294,14 +525,16 @@ button {
 .content-card {
   position: relative;
 
-  background: #f5f3ee;
+  background: var(--card-bg);
+
+  border:
+    1px solid var(--border);
 
   border-radius: 18px;
 
   padding: 38px;
 
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow);
 
   animation:
     cardAppear 0.7s ease both;
@@ -310,7 +543,9 @@ button {
 
   transition:
     transform 0.35s ease,
-    box-shadow 0.35s ease;
+    box-shadow 0.35s ease,
+    background 0.45s ease,
+    border-color 0.45s ease;
 }
 
 .content-card:hover {
@@ -319,9 +554,6 @@ button {
   box-shadow:
     0 18px 38px rgba(0, 0, 0, 0.22);
 }
-
-
-/* brilho que passa pelo card */
 
 .card-shine {
   position: absolute;
@@ -335,7 +567,7 @@ button {
   background: linear-gradient(
     100deg,
     transparent,
-    rgba(255, 255, 255, 0.30),
+    rgba(255, 255, 255, 0.20),
     transparent
   );
 
@@ -343,78 +575,65 @@ button {
 
   pointer-events: none;
 
-  transition: left 0.8s ease;
+  transition:
+    left 0.8s ease;
 }
 
 .content-card:hover .card-shine {
   left: 140%;
 }
 
+.content-card h2 {
+  position: relative;
 
-@keyframes cardAppear {
-  from {
-    opacity: 0;
-    transform:
-      translateY(20px)
-      scale(0.985);
-  }
+  z-index: 1;
 
-  to {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1);
-  }
+  font-size: 29px;
+
+  line-height: 1.2;
+
+  margin-bottom: 18px;
+
+  color: var(--text-main);
+
+  transition:
+    color 0.45s ease;
 }
 
-@keyframes headerAppear {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
+.content-card p {
+  position: relative;
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  z-index: 1;
+
+  font-size: 16px;
+
+  line-height: 1.7;
+
+  color: var(--text-secondary);
+
+  transition:
+    color 0.45s ease;
 }
 
 .section-label {
   position: relative;
+
   z-index: 1;
 
   display: block;
 
   font-size: 11px;
+
   font-weight: 700;
 
   letter-spacing: 1.8px;
 
-  color: #536575;
+  color: var(--muted);
 
   margin-bottom: 10px;
-}
 
-.content-card h2 {
-  position: relative;
-  z-index: 1;
-
-  font-size: 29px;
-  line-height: 1.2;
-
-  margin-bottom: 18px;
-
-  color: #111111;
-}
-
-.content-card p {
-  position: relative;
-  z-index: 1;
-
-  font-size: 16px;
-  line-height: 1.7;
-
-  color: #333333;
+  transition:
+    color 0.45s ease;
 }
 
 
@@ -432,11 +651,6 @@ button {
   align-items: center;
 }
 
-
-/* =========================================================
-   FOTO DE PERFIL
-========================================================= */
-
 .profile-image-container {
   position: relative;
 
@@ -445,11 +659,10 @@ button {
 
   border-radius: 50%;
 
-  overflow: visible;
-
-  background: #dce2e6;
+  background: var(--secondary-bg);
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -460,7 +673,8 @@ button {
 
   transition:
     transform 0.4s ease,
-    box-shadow 0.4s ease;
+    box-shadow 0.4s ease,
+    background 0.45s ease;
 }
 
 .profile-image-container:hover {
@@ -468,11 +682,12 @@ button {
 
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.22),
-    0 0 24px rgba(83, 101, 117, 0.16);
+    0 0 24px rgba(100, 150, 180, 0.16);
 }
 
 .profile-image {
   position: relative;
+
   z-index: 2;
 
   display: block;
@@ -480,15 +695,10 @@ button {
   width: 100%;
   height: 100%;
 
-  max-width: none;
-
   object-fit: cover;
 
   border-radius: 50%;
 }
-
-
-/* anel luminoso */
 
 .profile-image-ring {
   position: absolute;
@@ -497,52 +707,29 @@ button {
 
   border-radius: 50%;
 
-  border: 1px solid rgba(83, 101, 117, 0.35);
+  border:
+    1px solid rgba(130, 170, 195, 0.45);
 
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.5);
+    0 0 0 1px
+    rgba(255, 255, 255, 0.18);
 
   animation:
-    profilePulse 3.5s ease-in-out infinite;
+    profilePulse 3.5s
+    ease-in-out infinite;
 
   pointer-events: none;
-}
-
-@keyframes profilePulse {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.85;
-    transform: scale(1.025);
-  }
-}
-
-.profile-info {
-  position: relative;
-  z-index: 1;
-}
-
-.profile-info h2 {
-  margin-bottom: 12px;
 }
 
 .profile-description {
   margin-bottom: 22px;
 }
 
-
-/* =========================================================
-   INFORMAÇÕES DO PERFIL
-========================================================= */
-
 .profile-details {
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:
+    repeat(3, 1fr);
 
   gap: 14px;
 
@@ -550,7 +737,7 @@ button {
 }
 
 .profile-details div {
-  background: #e8ebed;
+  background: var(--secondary-bg);
 
   border-radius: 10px;
 
@@ -558,7 +745,8 @@ button {
 
   transition:
     transform 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease,
+    background 0.45s ease;
 }
 
 .profile-details div:hover {
@@ -573,7 +761,7 @@ button {
 
   font-size: 12px;
 
-  color: #536575;
+  color: var(--muted);
 
   margin-bottom: 5px;
 }
@@ -581,7 +769,7 @@ button {
 .profile-details span {
   font-size: 14px;
 
-  color: #111111;
+  color: var(--text-main);
 }
 
 
@@ -592,7 +780,8 @@ button {
 .subjects-grid {
   display: grid;
 
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns:
+    repeat(2, 1fr);
 
   gap: 18px;
 
@@ -602,20 +791,22 @@ button {
 .subject-card {
   position: relative;
 
-  background: #e8ebed;
+  background: var(--secondary-bg);
 
   border-radius: 13px;
 
   padding: 24px;
 
-  border: 1px solid rgba(13, 27, 42, 0.06);
+  border:
+    1px solid var(--border);
 
   overflow: hidden;
 
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
-    border-color 0.35s ease;
+    border-color 0.35s ease,
+    background 0.45s ease;
 }
 
 .subject-card:hover {
@@ -625,9 +816,6 @@ button {
 
   box-shadow:
     0 12px 25px rgba(0, 0, 0, 0.13);
-
-  border-color:
-    rgba(83, 101, 117, 0.22);
 }
 
 .subject-glow {
@@ -639,7 +827,8 @@ button {
   right: -55px;
   top: -55px;
 
-  background: rgba(83, 101, 117, 0.10);
+  background:
+    rgba(100, 150, 180, 0.10);
 
   border-radius: 50%;
 
@@ -652,22 +841,25 @@ button {
 
 .subject-card:hover .subject-glow {
   transform: scale(2);
+
   opacity: 0.75;
 }
 
 .subject-card h3 {
   position: relative;
+
   z-index: 1;
 
   font-size: 19px;
 
   margin-bottom: 10px;
 
-  color: #111111;
+  color: var(--text-main);
 }
 
 .subject-card p {
   position: relative;
+
   z-index: 1;
 
   font-size: 14px;
@@ -679,10 +871,6 @@ button {
 /* =========================================================
    BOTÃO DE ATIVIDADES
 ========================================================= */
-
-.activities-preview {
-  text-align: left;
-}
 
 .activities-button {
   position: relative;
@@ -699,9 +887,10 @@ button {
 
   border-radius: 10px;
 
-  background: #0d1b2a;
+  background: var(--button-bg);
 
-  color: white;
+  color:
+    var(--light-text);
 
   padding: 13px 18px;
 
@@ -713,8 +902,14 @@ button {
 
   transition:
     transform 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease;
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    color 0.35s ease;
+}
+
+:root[data-theme="dark"]
+.activities-button {
+  color: #07111a;
 }
 
 .activities-button::before {
@@ -737,7 +932,8 @@ button {
 
   transform: skewX(-20deg);
 
-  transition: left 0.6s ease;
+  transition:
+    left 0.6s ease;
 }
 
 .activities-button:hover::before {
@@ -745,7 +941,8 @@ button {
 }
 
 .activities-button:hover {
-  background: #142b40;
+  background:
+    var(--button-hover);
 
   transform:
     translateY(-3px)
@@ -759,6 +956,7 @@ button {
 .button-icon,
 .button-arrow {
   position: relative;
+
   z-index: 1;
 
   transition:
@@ -766,7 +964,9 @@ button {
 }
 
 .activities-button:hover .button-icon {
-  transform: rotate(-8deg) scale(1.1);
+  transform:
+    rotate(-8deg)
+    scale(1.1);
 }
 
 .activities-button:hover .button-arrow {
@@ -781,11 +981,13 @@ button {
 
 .contact-links {
   position: relative;
+
   z-index: 1;
 
   display: grid;
 
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns:
+    repeat(2, 1fr);
 
   gap: 15px;
 
@@ -805,11 +1007,12 @@ button {
 
   border-radius: 12px;
 
-  background: #e8ebed;
+  background: var(--secondary-bg);
 
-  border: 1px solid rgba(13, 27, 42, 0.07);
+  border:
+    1px solid var(--border);
 
-  color: #111111;
+  color: var(--text-main);
 
   text-decoration: none;
 
@@ -819,7 +1022,7 @@ button {
     transform 0.3s ease,
     box-shadow 0.3s ease,
     border-color 0.3s ease,
-    background 0.3s ease;
+    background 0.45s ease;
 }
 
 .contact-link::before {
@@ -836,13 +1039,14 @@ button {
   background: linear-gradient(
     100deg,
     transparent,
-    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.28),
     transparent
   );
 
   transform: skewX(-20deg);
 
-  transition: left 0.7s ease;
+  transition:
+    left 0.7s ease;
 }
 
 .contact-link:hover::before {
@@ -850,12 +1054,8 @@ button {
 }
 
 .contact-link:hover {
-  transform: translateY(-4px);
-
-  background: #edf0f1;
-
-  border-color:
-    rgba(83, 101, 117, 0.22);
+  transform:
+    translateY(-4px);
 
   box-shadow:
     0 10px 22px rgba(0, 0, 0, 0.12);
@@ -863,6 +1063,7 @@ button {
 
 .contact-icon {
   position: relative;
+
   z-index: 1;
 
   width: 40px;
@@ -872,21 +1073,30 @@ button {
 
   border-radius: 10px;
 
-  background: #0d1b2a;
+  background:
+    var(--button-bg);
 
-  color: white;
+  color:
+    var(--light-text);
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  font-size: 15px;
+  font-size: 13px;
+
   font-weight: 700;
 
   transition:
     transform 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease,
+    background 0.35s ease;
+}
+
+:root[data-theme="dark"]
+.contact-icon {
+  color: #07111a;
 }
 
 .contact-link:hover .contact-icon {
@@ -900,6 +1110,7 @@ button {
 
 .contact-info {
   position: relative;
+
   z-index: 1;
 
   display: flex;
@@ -913,12 +1124,14 @@ button {
 
 .contact-info strong {
   font-size: 15px;
+
+  color: var(--text-main);
 }
 
 .contact-info small {
   font-size: 12px;
 
-  color: #607383;
+  color: var(--soft-muted);
 
   overflow: hidden;
 
@@ -929,13 +1142,14 @@ button {
 
 .contact-arrow {
   position: relative;
+
   z-index: 1;
 
   margin-left: auto;
 
   font-size: 17px;
 
-  color: #607383;
+  color: var(--soft-muted);
 
   transition:
     transform 0.3s ease;
@@ -952,7 +1166,10 @@ button {
 ========================================================= */
 
 .activities-page {
-  width: min(1100px, calc(100% - 40px));
+  width: min(
+    1100px,
+    calc(100% - 40px)
+  );
 
   margin: 45px auto;
 
@@ -963,12 +1180,8 @@ button {
   gap: 28px;
 }
 
-.activities-intro {
-  animation-delay: 0.05s;
-}
-
 .github-status {
-  background: #f5f3ee;
+  background: var(--card-bg);
 
   border-radius: 14px;
 
@@ -976,17 +1189,25 @@ button {
 
   text-align: center;
 
-  color: #333333;
+  color: var(--text-secondary);
+
+  transition:
+    background 0.45s ease,
+    color 0.45s ease;
 }
 
 .github-status.error {
-  border-left: 5px solid #7b3030;
+  border-left:
+    5px solid #8f4545;
 }
 
+.organized-activities {
+  display: flex;
 
-/* =========================================================
-   SEMESTRE
-========================================================= */
+  flex-direction: column;
+
+  gap: 28px;
+}
 
 .semester-block {
   display: flex;
@@ -999,7 +1220,7 @@ button {
 .semester-title {
   color: white;
 
-  padding: 5px 5px 0;
+  padding: 5px;
 }
 
 .semester-title .section-label {
@@ -1018,13 +1239,18 @@ button {
 ========================================================= */
 
 .bimestre-block {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--activity-bg);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
 
   border-radius: 16px;
 
   padding: 26px;
 
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease;
 }
 
 .bimestre-title {
@@ -1067,11 +1293,15 @@ button {
 .activity-subject-card {
   display: grid;
 
-  grid-template-columns: 48px 1fr;
+  grid-template-columns:
+    48px 1fr;
 
   gap: 18px;
 
-  background: #f5f3ee;
+  background: var(--card-bg);
+
+  border:
+    1px solid var(--border);
 
   border-radius: 14px;
 
@@ -1079,11 +1309,13 @@ button {
 
   transition:
     transform 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease,
+    background 0.45s ease;
 }
 
 .activity-subject-card:hover {
-  transform: translateY(-3px);
+  transform:
+    translateY(-3px);
 
   box-shadow:
     0 10px 23px rgba(0, 0, 0, 0.16);
@@ -1095,7 +1327,7 @@ button {
 
   border-radius: 10px;
 
-  background: #dfe5e9;
+  background: var(--secondary-bg);
 
   display: flex;
 
@@ -1105,10 +1337,12 @@ button {
   font-size: 20px;
 
   transition:
-    transform 0.3s ease;
+    transform 0.3s ease,
+    background 0.45s ease;
 }
 
-.activity-subject-card:hover .subject-icon {
+.activity-subject-card:hover
+.subject-icon {
   transform:
     scale(1.08)
     rotate(-2deg);
@@ -1117,7 +1351,7 @@ button {
 .subject-content h3 {
   font-size: 20px;
 
-  color: #111111;
+  color: var(--text-main);
 
   margin-bottom: 16px;
 }
@@ -1136,11 +1370,14 @@ button {
 }
 
 .week-block {
-  background: #e8ebed;
+  background: var(--secondary-bg);
 
   border-radius: 10px;
 
   padding: 14px;
+
+  transition:
+    background 0.45s ease;
 }
 
 .week-title {
@@ -1148,14 +1385,14 @@ button {
 
   font-weight: 700;
 
-  color: #273947;
+  color: var(--text-main);
 
   margin-bottom: 10px;
 }
 
 
 /* =========================================================
-   LINKS DOS ARQUIVOS
+   LINKS
 ========================================================= */
 
 .subject-files {
@@ -1175,11 +1412,12 @@ button {
 
   text-decoration: none;
 
-  background: #f8f8f6;
+  background: var(--card-bg);
 
-  color: #172b3b;
+  color: var(--text-main);
 
-  border: 1px solid #d2d8dc;
+  border:
+    1px solid var(--border);
 
   border-radius: 8px;
 
@@ -1190,14 +1428,12 @@ button {
   font-weight: 600;
 
   transition:
-    background 0.25s ease,
+    background 0.3s ease,
     transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 
 .file-link:hover {
-  background: white;
-
   transform:
     translateY(-3px);
 
@@ -1205,18 +1441,14 @@ button {
     0 6px 14px rgba(0, 0, 0, 0.10);
 }
 
-.file-icon {
-  font-size: 14px;
-}
-
 .file-name {
-  color: #1d3345;
+  color: var(--text-main);
 }
 
 .file-arrow {
   font-size: 15px;
 
-  color: #607383;
+  color: var(--soft-muted);
 
   transition:
     transform 0.25s ease;
@@ -1229,7 +1461,7 @@ button {
 
 
 /* =========================================================
-   BOTÃO VOLTAR DA PÁGINA DE ATIVIDADES
+   BOTÃO VOLTAR
 ========================================================= */
 
 .activities-back-button {
@@ -1238,13 +1470,15 @@ button {
   left: 35px;
   top: 50%;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   text-decoration: none;
 
   color: white;
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border:
+    1px solid rgba(255, 255, 255, 0.25);
 
   border-radius: 9px;
 
@@ -1259,7 +1493,8 @@ button {
 }
 
 .activities-back-button:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background:
+    rgba(255, 255, 255, 0.08);
 
   transform:
     translateY(-50%)
@@ -1279,7 +1514,7 @@ button {
 
   margin-top: auto;
 
-  background: #081522;
+  background: var(--header-bg);
 
   color: #dce5ec;
 
@@ -1299,11 +1534,15 @@ button {
   text-align: center;
 
   overflow: hidden;
+
+  transition:
+    background 0.45s ease;
 }
 
 .footer p,
 .footer span {
   position: relative;
+
   z-index: 1;
 }
 
@@ -1326,27 +1565,83 @@ button {
   bottom: -90px;
   left: 50%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
-  background: rgba(110, 155, 185, 0.10);
+  background:
+    rgba(110, 155, 185, 0.10);
 
   filter: blur(35px);
 
   border-radius: 50%;
 
   animation:
-    footerGlow 4s ease-in-out infinite;
+    footerGlow 4s
+    ease-in-out infinite;
 }
 
 
 /* =========================================================
-   ANIMAÇÕES DE BRILHO
+   ANIMAÇÕES
 ========================================================= */
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes headerAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+@keyframes menuAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-10px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
 
 @keyframes headerGlow {
   0%,
   100% {
     opacity: 0.5;
+
     transform:
       translateX(-50%)
       scale(1);
@@ -1354,9 +1649,27 @@ button {
 
   50% {
     opacity: 0.9;
+
     transform:
       translateX(-50%)
       scale(1.12);
+  }
+}
+
+@keyframes profilePulse {
+  0%,
+  100% {
+    opacity: 0.45;
+
+    transform:
+      scale(1);
+  }
+
+  50% {
+    opacity: 0.85;
+
+    transform:
+      scale(1.025);
   }
 }
 
@@ -1383,7 +1696,7 @@ button {
 
     padding:
       30px
-      75px
+      85px
       30px
       30px;
   }
@@ -1396,21 +1709,36 @@ button {
     font-size: 13px;
   }
 
-  .menu-button {
-    right: 20px;
+  .header-controls {
     top: 20px;
+
+    right: 20px;
+
+    gap: 7px;
+  }
+
+  .theme-button,
+  .menu-button {
+    width: 42px;
+    height: 42px;
   }
 
   .menu {
     right: 20px;
-    top: 78px;
+
+    top: 72px;
   }
 
   .main-content,
   .activities-page {
-    width: min(100% - 28px, 700px);
+    width:
+      min(
+        calc(100% - 28px),
+        700px
+      );
 
-    margin: 28px auto;
+    margin:
+      28px auto;
   }
 
   .content-card {
@@ -1446,13 +1774,15 @@ button {
 
   .activities-back-button {
     left: 20px;
+
     top: 20px;
 
     transform: none;
   }
 
   .activities-back-button:hover {
-    transform: translateX(3px);
+    transform:
+      translateX(3px);
   }
 }
 
@@ -1480,12 +1810,22 @@ button {
     font-size: 12px;
   }
 
-  .menu-button {
-    width: 42px;
-    height: 42px;
+  .header-controls {
+    top: 14px;
 
     right: 16px;
-    top: 15px;
+
+    gap: 6px;
+  }
+
+  .theme-button,
+  .menu-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .theme-icon {
+    font-size: 19px;
   }
 
   .menu-button span {
@@ -1493,17 +1833,21 @@ button {
   }
 
   .menu {
-    width: calc(100% - 32px);
+    width:
+      calc(100% - 32px);
 
     right: 16px;
-    top: 68px;
+
+    top: 65px;
   }
 
   .main-content,
   .activities-page {
-    width: calc(100% - 20px);
+    width:
+      calc(100% - 20px);
 
-    margin: 20px auto;
+    margin:
+      20px auto;
 
     gap: 18px;
   }
@@ -1575,13 +1919,14 @@ button {
   }
 
   .footer {
-    padding: 25px 20px;
+    padding:
+      25px 20px;
   }
 }
 
 
 /* =========================================================
-   ACESSIBILIDADE — REDUZIR MOVIMENTO
+   ACESSIBILIDADE
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1593,8 +1938,13 @@ button {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
   }
 }
