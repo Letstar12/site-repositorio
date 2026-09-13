@@ -68,30 +68,18 @@ function Activities() {
     : {};
 
   return (
-    <div className="site">
+    <div className="site activities-site">
 
-      {/* HEADER */}
-      <header className="activities-header">
-
-        <div className="activities-header-left">
-          <a
-            href={import.meta.env.BASE_URL}
-            className="activities-back-button"
-          >
-            ← Voltar
-          </a>
-        </div>
-
-        <div className="activities-header-center">
-          <h1>Atividades Acadêmicas</h1>
-
-          <p>
-            Portfólio • Desenvolvimento de Sistemas
-          </p>
-        </div>
-
-      </header>
-
+      {/* ÁREA DO BOTÃO */}
+      <div className="activities-button-area">
+        <a
+          href={import.meta.env.BASE_URL}
+          className="activities-back-button-new"
+        >
+          <span className="back-arrow">←</span>
+          <span>Voltar</span>
+        </a>
+      </div>
 
       {/* CONTEÚDO */}
       <main className="activities-page">
@@ -118,7 +106,6 @@ function Activities() {
 
         </section>
 
-
         {loading && (
           <div className="github-status">
             <p>
@@ -127,13 +114,11 @@ function Activities() {
           </div>
         )}
 
-
         {!loading && error && (
           <div className="github-status error">
             <p>{error}</p>
           </div>
         )}
-
 
         {!loading && !error && portfolio && (
           <div className="organized-activities">
@@ -156,7 +141,6 @@ function Activities() {
 
                   </div>
 
-
                   {Object.entries(bimestres).map(
                     ([bimestre, materias]) => (
 
@@ -175,7 +159,6 @@ function Activities() {
 
                         </div>
 
-
                         <div className="activity-subjects">
 
                           {Object.entries(materias).map(
@@ -190,7 +173,6 @@ function Activities() {
                                   📁
                                 </div>
 
-
                                 <div className="subject-content">
 
                                   <span className="activity-label">
@@ -198,7 +180,6 @@ function Activities() {
                                   </span>
 
                                   <h3>{materia}</h3>
-
 
                                   <div className="weeks-container">
 
@@ -216,7 +197,6 @@ function Activities() {
                                             {semana}
                                           </div>
 
-
                                           <div className="subject-files">
 
                                             {files.map(
@@ -226,12 +206,8 @@ function Activities() {
                                               ) => (
 
                                                 <a
-                                                  key={
-                                                    file.path
-                                                  }
-                                                  href={
-                                                    file.url
-                                                  }
+                                                  key={file.path}
+                                                  href={file.url}
                                                   target="_blank"
                                                   rel="noreferrer"
                                                   className="file-link"
@@ -287,7 +263,6 @@ function Activities() {
         )}
 
       </main>
-
 
       {/* FOOTER */}
       <footer className="footer">
