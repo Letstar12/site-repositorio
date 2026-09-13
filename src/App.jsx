@@ -196,14 +196,13 @@ function App() {
           <h2>Quem eu sou</h2>
 
           <p>
-            Sou estudante do 3º ano do Ensino Médio e do curso
-            técnico em Desenvolvimento de Sistemas.
+            Meu nome é Letícia Oliveira Sá. Sou estudante do 3º ano do Ensino Médio
+            e do curso técnico em Desenvolvimento de Sistemas.
           </p>
 
           <p>
-            Este espaço reúne minha trajetória acadêmica,
-            atividades desenvolvidas e conhecimentos adquiridos
-            durante minha formação.
+            Este espaço reúne minha trajetória acadêmica, as atividades que desenvolvi
+            e os conhecimentos que venho adquirindo durante minha formação.
           </p>
 
         </section>
