@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import { getPortfolioData } from "./services/portfolio";
-import { applyTheme, getInitialTheme } from "./theme";
 
 function Activities() {
   const [portfolio, setPortfolio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  useEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
 
   useEffect(() => {
     async function loadActivities() {
@@ -31,14 +25,6 @@ function Activities() {
 
     loadActivities();
   }, []);
-
-  function toggleTheme() {
-    setTheme((currentTheme) =>
-      currentTheme === "light"
-        ? "dark"
-        : "light"
-    );
-  }
 
   function organizeFiles(files) {
     const structure = {};
@@ -85,49 +71,23 @@ function Activities() {
     <div className="site">
 
       {/* HEADER */}
-      <header className="header">
+      <header className="activities-header">
 
-        <div className="header-glow"></div>
-
-        <div className="header-content">
-          <h1>Atividades Acadêmicas</h1>
-
-          <p>
-            Portfólio • Desenvolvimento de Sistemas
-          </p>
-        </div>
-
-
-        {/* CONTROLES */}
-        <div className="header-controls">
-
-          <button
-            className="theme-button"
-            onClick={toggleTheme}
-            aria-label={
-              theme === "light"
-                ? "Ativar modo escuro"
-                : "Ativar modo claro"
-            }
-            title={
-              theme === "light"
-                ? "Modo escuro"
-                : "Modo claro"
-            }
-          >
-            <span className="theme-icon">
-              {theme === "light" ? "☾" : "☀"}
-            </span>
-          </button>
-
-
+        <div className="activities-header-left">
           <a
             href={import.meta.env.BASE_URL}
             className="activities-back-button"
           >
             ← Voltar
           </a>
+        </div>
 
+        <div className="activities-header-center">
+          <h1>Atividades Acadêmicas</h1>
+
+          <p>
+            Portfólio • Desenvolvimento de Sistemas
+          </p>
         </div>
 
       </header>
