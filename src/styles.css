@@ -1657,3 +1657,429 @@ body::before {
       0.01ms !important;
   }
 }
+
+/* ========================================
+   PROJETO TCC - HELP LIFE
+   ======================================== */
+
+.tcc-preview {
+  position: relative;
+  overflow: hidden;
+}
+
+.tcc-preview-button {
+  margin-top: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 12px 18px;
+
+  background: var(--button-bg);
+  color: var(--light-text);
+
+  border: none;
+  border-radius: 9px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tcc-preview-button:hover {
+  transform: translateY(-3px);
+
+  background: var(--button-hover);
+
+  box-shadow:
+    0 0 18px rgba(180, 210, 225, 0.18),
+    0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+.tcc-preview-button .button-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.tcc-preview-button .button-arrow {
+  font-size: 18px;
+  line-height: 1;
+
+  transition: transform 0.3s ease;
+}
+
+.tcc-preview-button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+
+/* ========================================
+   PÁGINA DO TCC
+   ======================================== */
+
+.tcc-site {
+  min-height: 100vh;
+}
+
+.tcc-button-area {
+  width: min(1100px, calc(100% - 40px));
+  height: 76px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  z-index: 50;
+}
+
+.tcc-back-button {
+  position: sticky;
+  top: 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 10px 16px;
+
+  background: rgba(13, 27, 42, 0.96);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9px;
+
+  color: white;
+  text-decoration: none;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tcc-back-button:hover {
+  transform: translateX(5px) translateY(-2px);
+
+  background: #162a3d;
+
+  border-color: rgba(255, 255, 255, 0.5);
+
+  box-shadow:
+    0 0 18px rgba(180, 210, 225, 0.18),
+    0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.tcc-back-button .back-arrow {
+  font-size: 20px;
+  line-height: 1;
+
+  transition: transform 0.3s ease;
+}
+
+.tcc-back-button:hover .back-arrow {
+  transform: translateX(-4px);
+}
+
+
+/* ========================================
+   CONTEÚDO DA PÁGINA TCC
+   ======================================== */
+
+.tcc-page {
+  width: min(1100px, calc(100% - 40px));
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.tcc-page .content-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.tcc-intro {
+  text-align: center;
+}
+
+.tcc-intro h1 {
+  margin-bottom: 8px;
+}
+
+.tcc-subtitle {
+  margin-top: 0;
+
+  color: var(--muted);
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+/* ========================================
+   LINKS DO TCC
+   ======================================== */
+
+.tcc-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.tcc-link {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 15px 17px;
+
+  background: var(--secondary-bg);
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  color: var(--text-main);
+  text-decoration: none;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tcc-link:hover {
+  transform: translateX(5px);
+
+  background: var(--menu-hover);
+
+  border-color: rgba(13, 27, 42, 0.18);
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.tcc-link-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: var(--button-bg);
+  color: var(--light-text);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.tcc-link-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.tcc-link-info strong {
+  color: var(--text-main);
+
+  font-size: 15px;
+}
+
+.tcc-link-info small {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tcc-link-arrow {
+  margin-left: auto;
+
+  flex-shrink: 0;
+
+  color: var(--muted);
+
+  font-size: 20px;
+
+  transition: transform 0.3s ease;
+}
+
+.tcc-link:hover .tcc-link-arrow {
+  transform: translate(3px, -3px);
+}
+
+
+/* ========================================
+   RESPONSIVO - TCC
+   ======================================== */
+
+@media (max-width: 768px) {
+
+  .tcc-button-area {
+    width: min(calc(100% - 28px), 700px);
+    height: 68px;
+  }
+
+  .tcc-page {
+    width: min(calc(100% - 28px), 700px);
+  }
+
+  .tcc-back-button {
+    top: 20px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .tcc-button-area {
+    width: calc(100% - 20px);
+    height: 62px;
+  }
+
+  .tcc-page {
+    width: calc(100% - 20px);
+    gap: 18px;
+  }
+
+  .tcc-back-button {
+    top: 14px;
+
+    padding: 9px 13px;
+  }
+
+  .tcc-link {
+    padding: 13px 14px;
+    gap: 11px;
+  }
+
+  .tcc-link-icon {
+    width: 38px;
+    height: 38px;
+
+    font-size: 13px;
+  }
+
+  .tcc-link-info strong {
+    font-size: 14px;
+  }
+
+  .tcc-link-info small {
+    font-size: 12px;
+  }
+
+}
+
+/* Texto do botão Help Life no tema escuro */
+[data-theme="dark"] .tcc-preview-button {
+  color: #0d1b2a;
+}
+
+/* ========================================
+   TCC - TÍTULO NO TEMA ESCURO
+   ======================================== */
+
+[data-theme="dark"] .tcc-intro h1 {
+  color: #ffffff;
+}
+
+/* ========================================
+   TECNOLOGIAS APRENDIDAS
+   ======================================== */
+
+.technologies-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.technologies-section p {
+  margin-bottom: 20px;
+}
+
+.technologies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.technology-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 15px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.technology-item:hover {
+  transform: translateY(-3px);
+  background: var(--menu-hover);
+  border-color: rgba(13, 27, 42, 0.18);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ========================================
+   RESPONSIVO - TECNOLOGIAS
+   ======================================== */
+
+@media (max-width: 480px) {
+
+  .technologies-list {
+    gap: 8px;
+  }
+
+  .technology-item {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+}

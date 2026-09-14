@@ -25,6 +25,14 @@ function App() {
     window.location.href = activitiesUrl;
   }
 
+  function goToTcc() {
+    const tccUrl = import.meta.env.DEV
+      ? "/tcc.html"
+      : `${baseUrl}tcc.html`;
+
+    window.location.href = tccUrl;
+  }
+
   function closeMenu() {
     setMenuOpen(false);
   }
@@ -328,6 +336,61 @@ function App() {
         </section>
 
 
+        {/* TECNOLOGIAS APRENDIDAS */}
+        <section className="content-card technologies-section">
+
+          <div className="card-shine"></div>
+
+          <span className="section-label">
+            TECNOLOGIAS
+          </span>
+
+          <h2>Tecnologias aprendidas</h2>
+
+          <p>
+            Tecnologias e ferramentas que fazem parte da minha
+            formação em Desenvolvimento de Sistemas.
+          </p>
+
+          <div className="technologies-list">
+
+            <span className="technology-item">
+              HTML
+            </span>
+
+            <span className="technology-item">
+              CSS
+            </span>
+
+            <span className="technology-item">
+              JavaScript
+            </span>
+
+            <span className="technology-item">
+              React
+            </span>
+
+            <span className="technology-item">
+              Git
+            </span>
+
+            <span className="technology-item">
+              GitHub
+            </span>
+
+            <span className="technology-item">
+              MySQL
+            </span>
+
+            <span className="technology-item">
+              Node.js
+            </span>
+
+          </div>
+
+        </section>
+
+
         {/* ATIVIDADES */}
         <section className="content-card activities-preview">
 
@@ -347,10 +410,42 @@ function App() {
           <button
             className="activities-button"
             onClick={goToActivities}
-          >
-            <span className="button-icon">📎</span>
+>
+           <span>Ver atividades</span>
 
-            <span>Ver atividades</span>
+            <span className="button-arrow">↗</span>
+          </button>     
+
+
+        </section>
+
+
+        {/* PROJETO TCC */}
+        <section className="content-card tcc-preview">
+
+          <div className="card-shine"></div>
+
+          <span className="section-label">
+            PROJETO TCC
+          </span>
+
+          <h2>Projeto Help Life</h2>
+
+          <p>
+            Projeto de Trabalho de Conclusão de Curso desenvolvido
+            durante minha formação técnica em Desenvolvimento de Sistemas.
+          </p>
+
+          <p>
+            O Help Life reúne informações e recursos relacionados à
+            saúde mental em um único espaço.
+          </p>
+
+          <button
+            className="tcc-preview-button"
+            onClick={goToTcc}
+          >
+            <span>Conhecer o projeto</span>
 
             <span className="button-arrow">↗</span>
           </button>
@@ -391,6 +486,7 @@ function App() {
 
               <span className="contact-info">
                 <strong>GitHub</strong>
+
                 <small>
                   github.com/Letstar12
                 </small>
@@ -414,6 +510,7 @@ function App() {
 
               <span className="contact-info">
                 <strong>LinkedIn</strong>
+
                 <small>
                   Perfil profissional
                 </small>
