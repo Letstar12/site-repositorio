@@ -1,4 +1,17 @@
 import { useEffect, useState } from "react";
+
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaGitAlt,
+  FaGithub,
+  FaNodeJs,
+} from "react-icons/fa";
+
+import { SiMysql } from "react-icons/si";
+
 import { applyTheme, getInitialTheme } from "./theme";
 
 function App() {
@@ -91,7 +104,6 @@ function App() {
 
         </div>
 
-
         {/* MENU */}
         {menuOpen && (
           <nav className="menu">
@@ -129,7 +141,6 @@ function App() {
         )}
 
       </header>
-
 
       {/* CONTEÚDO */}
       <main className="main-content">
@@ -188,7 +199,6 @@ function App() {
 
         </section>
 
-
         {/* QUEM EU SOU */}
         <section
           id="quem-sou"
@@ -214,7 +224,6 @@ function App() {
           </p>
 
         </section>
-
 
         {/* PORTFÓLIO */}
         <section
@@ -243,7 +252,6 @@ function App() {
 
         </section>
 
-
         {/* MATÉRIAS */}
         <section
           id="materias"
@@ -271,7 +279,6 @@ function App() {
               </p>
             </article>
 
-
             <article className="subject-card">
               <div className="subject-glow"></div>
 
@@ -282,7 +289,6 @@ function App() {
                 interno das aplicações.
               </p>
             </article>
-
 
             <article className="subject-card">
               <div className="subject-glow"></div>
@@ -295,7 +301,6 @@ function App() {
               </p>
             </article>
 
-
             <article className="subject-card">
               <div className="subject-glow"></div>
 
@@ -307,7 +312,6 @@ function App() {
               </p>
             </article>
 
-
             <article className="subject-card">
               <div className="subject-glow"></div>
 
@@ -318,7 +322,6 @@ function App() {
                 para dispositivos móveis.
               </p>
             </article>
-
 
             <article className="subject-card">
               <div className="subject-glow"></div>
@@ -334,7 +337,6 @@ function App() {
           </div>
 
         </section>
-
 
         {/* TECNOLOGIAS APRENDIDAS */}
         <section className="content-card technologies-section">
@@ -355,41 +357,48 @@ function App() {
           <div className="technologies-list">
 
             <span className="technology-item">
-              HTML
+              <FaHtml5 className="technology-icon" />
+              <span>HTML</span>
             </span>
 
             <span className="technology-item">
-              CSS
+              <FaCss3Alt className="technology-icon" />
+              <span>CSS</span>
             </span>
 
             <span className="technology-item">
-              JavaScript
+              <FaJs className="technology-icon" />
+              <span>JavaScript</span>
             </span>
 
             <span className="technology-item">
-              React
+              <FaReact className="technology-icon" />
+              <span>React</span>
             </span>
 
             <span className="technology-item">
-              Git
+              <FaGitAlt className="technology-icon" />
+              <span>Git</span>
             </span>
 
             <span className="technology-item">
-              GitHub
+              <FaGithub className="technology-icon" />
+              <span>GitHub</span>
             </span>
 
             <span className="technology-item">
-              MySQL
+              <SiMysql className="technology-icon" />
+              <span>MySQL</span>
             </span>
 
             <span className="technology-item">
-              Node.js
+              <FaNodeJs className="technology-icon" />
+              <span>Node.js</span>
             </span>
 
           </div>
 
         </section>
-
 
         {/* ATIVIDADES */}
         <section className="content-card activities-preview">
@@ -410,15 +419,12 @@ function App() {
           <button
             className="activities-button"
             onClick={goToActivities}
->
-           <span>Ver atividades</span>
-
+          >
+            <span>Ver atividades</span>
             <span className="button-arrow">↗</span>
-          </button>     
-
+          </button>
 
         </section>
-
 
         {/* PROJETO TCC */}
         <section className="content-card tcc-preview">
@@ -446,12 +452,10 @@ function App() {
             onClick={goToTcc}
           >
             <span>Conhecer o projeto</span>
-
             <span className="button-arrow">↗</span>
           </button>
 
         </section>
-
 
         {/* CONTATO */}
         <section
@@ -497,7 +501,6 @@ function App() {
               </span>
             </a>
 
-
             <a
               href="https://www.linkedin.com/in/letícia-oliveira-sá-0a09b0378/"
               target="_blank"
@@ -526,7 +529,6 @@ function App() {
         </section>
 
       </main>
-
 
       {/* FOOTER */}
       <footer className="footer">
