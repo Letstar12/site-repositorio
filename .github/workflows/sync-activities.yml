@@ -79,5 +79,6 @@ jobs:
             echo "Nenhuma alteração encontrada."
           else
             git commit -m "Sincroniza atividades do repositorio privado"
+            git pull --rebase origin main
             git push
           fi
